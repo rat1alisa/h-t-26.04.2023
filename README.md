@@ -72,4 +72,108 @@ int main()
 	return 0;
 }
 
+//=====================================================================================================================================================================
 //TASK 1.2
+#include <iostream> 
+#include <cmath>
+using namespace std;
+
+class Complex
+{
+public:
+    double real;
+    double im;
+    //----------
+    Complex() {}
+    Complex(double real1, double im1)
+    { 
+        real = real1; im = im1;
+    }
+    Complex(const Complex& c) 
+    { 
+        real = c.real; im = c.im;
+    };
+    //----------
+    Complex& operator = (Complex);
+    Complex operator + (Complex);
+    Complex operator - (Complex);
+    Complex operator * (Complex&);
+    Complex operator / (Complex&);
+
+    void Input()
+    {
+        cout << "Enter the real part of a complex number - ";
+        cin >> real;
+        cout << "Enter the imaginary part of a complex number - ";
+        cin >> im;
+        cout << endl;
+    }
+
+    void Output()
+    {
+        if (im < 0)
+            cout << real << "+i(" << im << ")" << endl;
+        else
+            cout << real << "+i" << im << endl;
+    }
+};
+//----------------------------------------
+Complex& Complex::operator =(Complex com)
+{
+    this->real = com.real;
+    this->im = com.im;
+    return *this;
+}
+
+Complex Complex::operator+(Complex com)
+{
+    Complex comp;
+    comp.real = real + com.real;
+    comp.im = im + com.im;
+    return comp;
+}
+
+Complex Complex::operator-(Complex com)
+{
+    Complex comp;
+    comp.real = real - com.real;
+    comp.im = im - com.im;
+    return comp;
+}
+
+Complex Complex::operator*(Complex& com)
+{
+    double a;
+    double b;
+    a = real * com.real - im * com.im;
+    b = real * com.im + com.real * im;
+    real = a;
+    im = b;
+    return *this;
+}
+
+Complex Complex::operator/(Complex& com)
+{
+    double a;
+    double b;
+    double c;
+    a = real * real + com.im * com.im;
+    b = (real * com.real + im * com.im) / a;
+    c = (com.real * im - real * com.im) / a;
+    real = a;
+    im = b;
+    return *this;
+}
+//----------------------------------------
+
+int main()
+{
+    Complex com1;
+    cout << "\n\tEnter the data for the first complex number: " << endl;
+    com1.Input();
+    com1.Output();
+    Complex com2;
+    cout << "\n\tEnter the data for the second complex number: " << endl;
+    com1.Input();
+    com1.Output();
+}
